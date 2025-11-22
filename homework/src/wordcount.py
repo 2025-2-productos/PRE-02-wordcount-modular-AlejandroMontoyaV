@@ -8,13 +8,18 @@ from ._internals.split_into_words import split_into_words
 from ._internals.write_word_counts import write_word_counts
 
 
-def main():
-    if len(sys.argv) != 3:
-        print("Usage: python wordcount.py <input_folder> <output_folder>")
-        sys.exit(1)
+def main(input_folder=None, output_folder=None):
+    # Caso 1: main() llamado directamente → usar carpetas por defecto
+    if input_folder is None or output_folder is None:
 
-    input_folder = sys.argv[1]
-    output_folder = sys.argv[2]
+        # Caso 2: si fue llamado por CLI con argumentos
+        if len(sys.argv) == 3:
+            input_folder = sys.argv[1]
+            output_folder = sys.argv[2]
+        else:
+            # Defaults para los tests
+            input_folder = "data/input"
+            output_folder = "data/output"
 
     ## read all lines
     all_lines = read_all_lines(input_folder)
